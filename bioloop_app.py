@@ -1,9 +1,26 @@
+# Trigger redeploy
 import streamlit as st
 from fuzzywuzzy import process
 import json, os, re, hashlib
 from geopy.geocoders import Nominatim
 import pandas as pd
 from datetime import datetime
+# 1. Set the app configuration (title, icon, layout)
+st.set_page_config(
+    page_title="BioLoop | Waste Management",
+    page_icon="♻️",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# 2. Optional: Show your logo
+st.image("data/logo.png", width=150)  # Add your logo to /data folder
+
+# 3. Optional: Add app description inside an expander
+with st.expander("📘 About BioLoop"):
+    st.write("BioLoop is a waste profiling app designed to support eco-sustainable MSME practices.")
+
+# The rest of your app continues here...
 
 # Setup paths
 DATA_FILE = "data/waste_profiles.json"
