@@ -5,6 +5,19 @@ import json, os, re, hashlib
 from geopy.geocoders import Nominatim
 import pandas as pd
 from datetime import datetime
+
+
+page_bg_img = """
+<style>
+[data-testid="stAppViewContainer"] {
+    background-image: url("https://raw.githubusercontent.com/shunmathi007/bioloop/main/data/bg.png");
+    background-size: cover;
+}
+</style>
+"""
+
+st.markdown(page_bg_img, unsafe_allow_html=True)
+
 # 1. Set the app configuration (title, icon, layout)
 st.set_page_config(
     page_title="BioLoop | Waste Management",
