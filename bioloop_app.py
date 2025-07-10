@@ -1,4 +1,4 @@
-# Trigger redeploy
+# trigger redeploy
 import streamlit as st
 from fuzzywuzzy import process
 import json, os, re, hashlib
