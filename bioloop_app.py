@@ -13,8 +13,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# 2. Optional: Show your logo
-st.image("data/logo.png", width=150)  # Add your logo to /data folder
 
 # 3. Optional: Add app description inside an expander
 with st.expander("📘 About BioLoop"):
