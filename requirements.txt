@@ -1,0 +1,5 @@
+streamlit
+fuzzywuzzy
+geopy
+pandas
+python-Levenshtein
