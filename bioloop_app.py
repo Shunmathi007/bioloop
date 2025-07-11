@@ -1,109 +1,127 @@
-# trigger redeploy
 import streamlit as st
 from fuzzywuzzy import process
 import json, os, re, hashlib
 from geopy.geocoders import Nominatim
 import pandas as pd
 from datetime import datetime
-
-
-page_bg_img = """
-<style>
-[data-testid="stAppViewContainer"] {
-    background-image: url("https://raw.githubusercontent.com/shunmathi007/bioloop/main/data/bg.png");
-    background-size: cover;
+# 🌟 Custom Visual Styles
+st.markdown("""
+    <style>
+    html, body, [class*="stApp"] {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #e6f2e6, #ccf2ff);
+        color: #1e3932;
+    }
+    .block-container {
+        padding: 1rem 2rem;
+    }
+    .stButton>button {
+        background-color: #008080;
+        color: white;
+        border-radius: 8px;
+        padding: 0.4em 1em;
+        margin-top: 10px;
+    }
+    .stSelectbox, .stTextInput, .stNumberInput {
+        border-radius: 10px;
+    }
+    .metric {
+        background-color: #ffffff77;
+        padding: 10px;
+        border-radius: 12px;
+        margin-bottom: 10px;
+    }
+    </style>
+""", unsafe_allow_html=True)
+# 🔠 Language Selection
+lang = st.selectbox("🌐 Choose language", ["English", "தமிழ்", "हिन्दी"])
+labels = {
+    "English": {
+        "submit": "Submit", "material": "Material Type", "login": "MSME Login", "password": "Password",
+        "signup": "Sign Up", "location": "Location", "quantity": "Quantity (kg/week)", "invalid_login": "🔐 Invalid login.",
+        "header": "Submit Your Waste", "contact": "Contact Info", "quality": "Quality", "public_contact": "Show contact publicly",
+        "account_created": "✅ Account created! Please log in.", "duplicate_id": "🚫 ID already exists.",
+        "missing_fields": "Please fill both fields."
+    },
+    "தமிழ்": {
+        "submit": "சமர்ப்பி", "material": "வஸ்து வகை", "login": "எம்.எஸ்.எம்.இ நுழைவு", "password": "கடவுச்சொல்",
+        "signup": "பதிவு செய்", "location": "இடம்", "quantity": "அளவு (கி.கி/வாரம்)", "invalid_login": "🔐 தவறான நுழைவு.",
+        "header": "உங்கள் கழிவுகளை சமர்ப்பிக்கவும்", "contact": "தொடர்பு தகவல்", "quality": "தரம்", "public_contact": "தொடர்பை பொதுவாக காட்டவும்",
+        "account_created": "✅ கணக்கு உருவாக்கப்பட்டது! தயவுசெய்து நுழைக.", "duplicate_id": "🚫 ஐடி ஏற்கனவே உள்ளது.",
+        "missing_fields": "உருப்படிகளை நிரப்பவும்."
+    },
+    "हिन्दी": {
+        "submit": "जमा करें", "material": "सामग्री प्रकार", "login": "एमएसएमई लॉगिन", "password": "पासवर्ड",
+        "signup": "साइन अप", "location": "स्थान", "quantity": "मात्रा (किग्रा/सप्ताह)", "invalid_login": "🔐 अमान्य लॉगिन।",
+        "header": "अपना कचरा जमा करें", "contact": "संपर्क जानकारी", "quality": "गुणवत्ता", "public_contact": "सार्वजनिक रूप से संपर्क दिखाएँ",
+        "account_created": "✅ खाता बनाया गया! कृपया लॉग इन करें।", "duplicate_id": "🚫 आईडी पहले से मौजूद है।",
+        "missing_fields": "कृपया सभी फ़ील्ड भरें।"
+    }
 }
-</style>
-"""
 
-st.markdown(page_bg_img, unsafe_allow_html=True)
+# Set app title
+st.set_page_config(page_title="BioLoop", page_icon="♻", layout="wide")
+st.title("♻ BioLoop – Circular Economy for MSMEs")
 
-# 1. Set the app configuration (title, icon, layout)
-st.set_page_config(
-    page_title="BioLoop | Waste Management",
-    page_icon="♻️",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
-
-# 3. Optional: Add app description inside an expander
-with st.expander("📘 About BioLoop"):
-    st.write("BioLoop is a waste profiling app designed to support eco-sustainable MSME practices.")
-
-# The rest of your app continues here...
-
-# Setup paths
+# File setup
 DATA_FILE = "data/waste_profiles.json"
 USER_FILE = "data/users.json"
 os.makedirs("data", exist_ok=True)
 
-# Auto-create files
 if not os.path.exists(DATA_FILE):
     with open(DATA_FILE, "w") as f:
         json.dump([], f)
 if not os.path.exists(USER_FILE):
     with open(USER_FILE, "w") as f:
-        json.dump({"MSME1": "pass123", "admin@bioloop.in": "admin"}, f)
+        json.dump({"admin@bioloop.in": "admin"}, f)
 
-# Page config
-st.set_page_config(page_title="BioLoop", page_icon="♻️", layout="wide")
-st.markdown("""
-    <style>
-    @media only screen and (max-width: 600px) {
-        .block-container { padding: 10px; }
-        h1, h2, h3 { font-size: 18px !important; }
-    }
-    </style>
-""", unsafe_allow_html=True)
-
-# Multi-language support
-lang = st.selectbox("🌐 Choose language", ["English", "தமிழ்", "हिन्दी"])
-labels = {
-    "English": {"submit": "Submit", "material": "Material Type", "login": "MSME Login"},
-    "தமிழ்": {"submit": "சமர்ப்பி", "material": "வஸ்து வகை", "login": "எம்.எஸ்.எம்.இ நுழைவு"},
-    "हिन्दी": {"submit": "जमा करें", "material": "सामग्री प्रकार", "login": "एमएसएमई लॉगिन"}
-}
-
-# Auth system
-st.sidebar.header(labels[lang]["login"])
-auth_mode = st.sidebar.radio("Auth Mode", ["Login", "Sign Up"])
+# Load users
 users = json.load(open(USER_FILE))
+
+# 🔐 Sidebar Auth
+st.sidebar.header(labels[lang]["login"])
+auth_mode = st.sidebar.radio("Auth Mode", ["Login", labels[lang]["signup"]])
+authenticated = False
 
 if auth_mode == "Login":
     user_id = st.sidebar.text_input("MSME ID")
-    password = st.sidebar.text_input("Password", type="password")
+    password = st.sidebar.text_input(labels[lang]["password"], type="password")
     authenticated = user_id in users and users[user_id] == password
     if not authenticated:
-        st.warning("🔐 Invalid login.")
+        st.warning(labels[lang]["invalid_login"])
         st.stop()
-elif auth_mode == "Sign Up":
+
+elif auth_mode == labels[lang]["signup"]:
     new_id = st.sidebar.text_input("Choose MSME ID")
     new_pass = st.sidebar.text_input("Choose Password", type="password")
     if st.sidebar.button("Create Account"):
         if new_id in users:
-            st.sidebar.error("🚫 ID already exists.")
+            st.sidebar.error(labels[lang]["duplicate_id"])
         elif not new_id or not new_pass:
-            st.sidebar.warning("Please fill both fields.")
+            st.sidebar.warning(labels[lang]["missing_fields"])
         else:
             users[new_id] = new_pass
             with open(USER_FILE, "w") as f:
                 json.dump(users, f)
-            st.sidebar.success("✅ Account created! Please log in.")
+            st.sidebar.success(labels[lang]["account_created"])
             st.stop()
     user_id = new_id
+# 🌍 Geolocation setup
+geolocator = Nominatim(user_agent="bioloop")
 
-# Core setup
-st.title("♻️ BioLoop – Circular Economy for MSMEs")
+def generate_trace_hash(entry):
+    raw = f"{entry['material']}{entry['quantity']}{entry['location']}_{entry['timestamp']}"
+    return hashlib.sha256(raw.encode()).hexdigest()
 
-# Databases
+# ♻ Reuse and unit DB
 reuse_db = {
     "cotton scraps": ["🧸 Toy Stuffing", "🧵 Yarn Recyclers"],
-    "metal scraps": ["⚙️ Metal Artist", "🪑 Furniture Maker"],
+    "metal scraps": ["⚙ Metal Artist", "🪑 Furniture Maker"],
     "food waste": ["🌱 Composting", "🔥 Biogas"],
     "sawdust": ["🪵 Board Makers", "🔥 Briquette Units"],
     "paper waste": ["📚 Stationery", "📦 Packaging"]
 }
+
 micro_units = {
     "cotton scraps": {"unit": "Stuffing Unit", "tool": "Shredder (₹8,000)", "roi": "2 months"},
     "metal scraps": {"unit": "Art Studio", "tool": "Welder (₹12,000)", "roi": "₹6,000/month"},
@@ -111,43 +129,41 @@ micro_units = {
     "sawdust": {"unit": "Briquette Unit", "tool": "Press (₹15,000)", "roi": "₹3,000/month"},
     "paper waste": {"unit": "Paper Unit", "tool": "Pulper (₹10,000)", "roi": "₹2,500/month"}
 }
+
 carbon_factors = {
-    "cotton scraps": 2.5,
-    "metal scraps": 6.0,
-    "food waste": 1.8,
-    "sawdust": 2.2,
-    "paper waste": 2.9
+    "cotton scraps": 2.5, "metal scraps": 6.0, "food waste": 1.8,
+    "sawdust": 2.2, "paper waste": 2.9
 }
-geolocator = Nominatim(user_agent="bioloop")
 
-def generate_trace_hash(entry):
-    raw = f"{entry['material']}_{entry['quantity']}_{entry['location']}_{entry['timestamp']}"
-    return hashlib.sha256(raw.encode()).hexdigest()
-
-# Role selector
-roles = ["I have waste", "I need materials", "My Dashboard", "Analytics", "Micro-unit planner", "Export data"]
+# 🔘 User Role Selection
+roles = [
+    "I have waste", "I need materials", "My Dashboard",
+    "Analytics", "Micro-unit planner", "Export data"
+]
 if user_id == "admin@bioloop.in":
     roles.append("Admin Panel")
 role = st.radio("Choose Role", roles)
 
-# Waste submission
+# ✏ Waste Submission Form
 if role == "I have waste":
-    st.header("📝 Submit Your Waste")
+    st.header("📝 " + labels[lang]["header"])
     material_input = st.text_input(labels[lang]["material"])
     material = None
     if material_input:
         match = process.extractOne(material_input.lower(), reuse_db.keys())
         if match:
             material = match[0]
-            st.info(f"Matched: `{material.title()}` ({match[1]}%)")
+            st.info(f"Matched: {material.title()} ({match[1]}%)")
+
     if material:
-        quantity = st.number_input("Quantity (kg/week)", min_value=1)
-        location = st.text_input("Location")
-        contact = st.text_input("Contact Info")
-        quality = st.selectbox("Quality", ["Clean", "Mixed", "Contaminated"])
-        show_contact = st.checkbox("Show contact publicly", value=True)
+        quantity = st.number_input(labels[lang]["quantity"], min_value=1)
+        location = st.text_input(labels[lang]["location"])
+        contact = st.text_input(labels[lang]["contact"])
+        quality = st.selectbox(labels[lang]["quality"], ["Clean", "Mixed", "Contaminated"])
+        show_contact = st.checkbox(labels[lang]["public_contact"], value=True)
+
         if st.button(labels[lang]["submit"]):
-            valid = re.match(r"[^@]+@[^@]+\.[^@]+", contact) or re.match(r"\d{10}", contact)
+            valid = re.match(r"[^@]+@[^@]+\\.[^@]+", contact) or re.match(r"\\d{10}", contact)
             if not valid:
                 st.warning("Invalid contact.")
             else:
@@ -157,6 +173,7 @@ if role == "I have waste":
                     lat, lon = loc.latitude, loc.longitude
                 except:
                     pass
+
                 entry = {
                     "material": material,
                     "quantity": quantity,
@@ -169,49 +186,48 @@ if role == "I have waste":
                     "user_id": user_id
                 }
                 entry["trace_id"] = generate_trace_hash(entry)
+
                 data = json.load(open(DATA_FILE))
                 data.append(entry)
                 with open(DATA_FILE, "w") as f:
                     json.dump(data, f, indent=2)
+
                 st.success("✅ Submission saved.")
                 st.subheader("🔍 Reuse Suggestions")
                 for r in reuse_db[material]:
                     st.write(f"✅ {r}")
+
                 factor = carbon_factors.get(material, 2.4)
                 st.metric("🌱 CO₂ Saved", f"{quantity * factor:.2f} kg/month")
                 st.metric("💰 Revenue", f"₹{quantity * 5}/month")
+
                 if material in micro_units:
                     mu = micro_units[material]
                     st.subheader("💡 Micro-Unit Plan")
                     st.write(f"Unit: {mu['unit']} | Tool: {mu['tool']} | ROI: {mu['roi']}")
-
-# Browse listings
+# 📦 Waste Listings
 elif role == "I need materials":
     st.header("🔍 Waste Listings")
     data = json.load(open(DATA_FILE))
     materials = list(set([d["material"] for d in data]))
     selected = st.selectbox("Filter Material", ["All"] + materials)
     filtered = data if selected == "All" else [d for d in data if d["material"] == selected]
+
     for d in filtered:
-        st.markdown(f"**{d['material'].title()}** — {d['quantity']} kg/week")
+        st.markdown(f"{d['material'].title()}** — {d['quantity']} kg/week")
         st.markdown(f"📍 {d['location']} | 📞 {d['contact']}")
-        st.markdown(f"🧾 Quality: {d.get('quality','-')} | Trace ID: `{d.get('trace_id','-')}`")
+        st.markdown(f"🧾 Quality: {d.get('quality','-')} | Trace ID: {d.get('trace_id','-')}")
         st.markdown("---")
-    coords = pd.DataFrame([{"lat": d["lat"], "lon": d["lon"]} for d in filtered if d["lat"] and d["lon"]])
+
+    coords = pd.DataFrame([
+        {"lat": d["lat"], "lon": d["lon"]}
+        for d in filtered if d["lat"] and d["lon"]
+    ])
     if not coords.empty:
         st.subheader("📍 Map View")
         st.map(coords)
 
-    # 🤖 Smart Reuse Match
-    st.subheader("🧠 Best Reuse Match Suggestions")
-    for entry in filtered:
-        best = max(reuse_db[entry['material']], key=lambda x: (
-            (entry['material'] in x.lower()) * 50 +
-            (entry.get('location','').lower() in x.lower()) * 30 +
-            (entry['quantity'] > 20) * 20
-        ))
-        st.write(f"For {entry['material']}: **{best}**")
-# My Dashboard (user-specific)
+# 📊 My Dashboard
 elif role == "My Dashboard":
     st.header("👤 My Dashboard")
     data = json.load(open(DATA_FILE))
@@ -240,12 +256,12 @@ elif role == "My Dashboard":
 
         st.subheader("📝 Your Submissions")
         for d in my_entries:
-            st.markdown(f"**{d['material'].title()}** — {d['quantity']} kg/week")
+            st.markdown(f"{d['material'].title()}** — {d['quantity']} kg/week")
             st.markdown(f"📍 {d['location']} | 📞 {d['contact']}")
-            st.markdown(f"🧾 Quality: {d.get('quality','-')} | Trace ID: `{d.get('trace_id','-')}`")
+            st.markdown(f"🧾 Quality: {d.get('quality','-')} | Trace ID: {d.get('trace_id','-')}")
             st.markdown("---")
 
-# Analytics Dashboard
+# 📈 Analytics
 elif role == "Analytics":
     st.header("📊 Analytics Dashboard")
     data = json.load(open(DATA_FILE))
@@ -255,7 +271,9 @@ elif role == "Analytics":
         st.info("No data to analyze.")
     else:
         total_quantity = df["quantity"].sum()
-        total_co2 = sum([d["quantity"] * carbon_factors.get(d["material"], 2.4) for d in data])
+        total_co2 = sum([
+            d["quantity"] * carbon_factors.get(d["material"], 2.4) for d in data
+        ])
         st.metric("Total Waste Submitted", f"{total_quantity} kg")
         st.metric("Estimated CO₂ Saved", f"{total_co2:.2f} kg")
 
@@ -264,7 +282,7 @@ elif role == "Analytics":
         for mat, count in top_mats.items():
             st.write(f"{mat.title()}: {count} entries")
 
-# Micro-unit Planner
+# 🏭 Micro-unit Planner
 elif role == "Micro-unit planner":
     st.header("🔧 Micro-Unit Planner")
     budget = st.number_input("Enter your budget (₹)", min_value=100)
@@ -280,15 +298,15 @@ elif role == "Micro-unit planner":
 
     if affordable:
         for mat, unit in affordable.items():
-            st.markdown(f"**{mat.title()}**")
-            st.write(f"🛠️ Tool: {unit['tool']}")
+            st.markdown(f"{mat.title()}")
+            st.write(f"🛠 Tool: {unit['tool']}")
             st.write(f"📈 ROI: {unit['roi']}")
             st.write(f"🏭 Unit: {unit['unit']}")
             st.markdown("---")
     else:
         st.info("No micro-units found within your budget.")
 
-# Export Data as CSV
+# 📤 Export CSV
 elif role == "Export data":
     st.header("📥 Download All Submissions")
     data = json.load(open(DATA_FILE))
@@ -299,9 +317,9 @@ elif role == "Export data":
         csv = df.to_csv(index=False)
         st.download_button("Download CSV", csv, "bioloop_data.csv", "text/csv")
 
-# Admin Panel (admin only)
+# 🔐 Admin Panel
 elif role == "Admin Panel":
-    st.header("🛡️ Admin Panel")
+    st.header("🛡 Admin Panel")
     data = json.load(open(DATA_FILE))
     df = pd.DataFrame(data)
 
