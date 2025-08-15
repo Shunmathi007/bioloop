@@ -159,8 +159,7 @@ def back_button(default="landing"):
     prev = st.session_state.get("prev_page", default)
     if st.button("⬅️ " + L("back")):
         st.session_state["page"] = prev
-        st.experimental_rerun()
-
+   
 def lang_selector():
     lang = st.selectbox("🌍", list(labels.keys()),
                         index=list(labels.keys()).index(st.session_state["lang"]))
@@ -580,3 +579,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
