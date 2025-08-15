@@ -135,7 +135,7 @@ labels = {
         "admin_approve": "स्वीकृत करें", "admin_reject": "अस्वीकृत करें", "approved": "स्वीकृत!", "rejected": "अस्वीकृत.",
 
       
-}
+}}
 def L(key): return labels[st.session_state.get("lang", "English")].get(key, key)
 
 # --- DATA FILES ---
@@ -497,4 +497,5 @@ def main():
 
 if _name_ == "_main_":
     main()
+
 
