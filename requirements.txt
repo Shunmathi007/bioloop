@@ -2,4 +2,6 @@ streamlit
 fuzzywuzzy
 geopy
 pandas
+streamlit-lottie
 python-Levenshtein
+requests
