@@ -229,7 +229,6 @@ def save_guide(guide):
     guides.append(guide)
     save_datafile(GUIDES_FILE, guides)
 import streamlit as st
-from bioloop_core import *
 from datetime import datetime
 
 def load_lottiefile(filepath: str):
@@ -374,8 +373,6 @@ def privacy_policy_page():
     st.write("For more info, contact admin@bioloop.in")
     back_button("landing")
 import streamlit as st
-from bioloop_core import *
-from bioloop_pages import *
 from datetime import datetime
 import base64, io, pandas as pd
 from fpdf import FPDF
@@ -723,3 +720,4 @@ def main():
 
 if _name_ == "_main_":
     main()
+
