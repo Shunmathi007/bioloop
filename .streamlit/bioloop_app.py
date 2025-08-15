@@ -10,7 +10,7 @@ import qrcode
 # --- LOCALIZATION (FULL, ALL 3 LANGUAGES) ---
 labels = {
     "English": {
-       "submit": "Submit Waste", "material": "Material Type", "login": "MSME Login", "password": "Password",
+        "submit": "Submit Waste", "material": "Material Type", "login": "MSME Login", "password": "Password",
         "signup": "Sign Up", "location": "Location", "quantity": "Quantity (kg/week)", "invalid_login": "🔐 Invalid login.",
         "header": "Submit Your Waste", "contact": "Contact Info", "quality": "Quality", "public_contact": "Show contact publicly",
         "account_created": "✅ Account created! Please log in.", "duplicate_id": "🚫 ID already exists.",
@@ -48,8 +48,7 @@ labels = {
         "progress": "Your Green Progress", "next_badge": "Next badge at", "early_adopter": "🌱 Early Adopter",
         "whatsapp": "Join WhatsApp Community", "howto_desc": "Watch demo, join community, and see how to get the most out of BioLoop.",
         "admin_review": "Admin Review Pending", "gstin": "GSTIN (for verification)", "submit_signup": "Register",
-        "admin_approve": "Approve", "admin_reject": "Reject", "approved": "Approved!", "rejected": "Rejected.",
-  
+        "admin_approve": "Approve", "admin_reject": "Reject", "approved": "Approved!", "rejected": "Rejected."
     },
     "தமிழ்": {
         "submit": "கழிவை சமர்ப்பி", "material": "பொருள் வகை", "login": "உள்நுழை", "password": "கடவுச்சொல்",
@@ -68,7 +67,7 @@ labels = {
         "no_data": "தரவு இல்லை.", "no_entries": "நீங்கள் இன்னும் சமர்ப்பிக்கவில்லை.",
         "delete_success": "✅ சமர்ப்பிப்பு நீக்கப்பட்டது.", "download_csv": "CSV பதிவிறக்கு",
         "browse": "பொருள்கள் பார்க்க", "otp": "உங்கள் மின்னஞ்சலில் OTP உள்ளிடவும் (1234)",
-          "verify": "சரிபார்க்க", "verified": "சரிபார்க்கப்பட்ட MSME 🟢", "not_verified": "சரிபார்க்கவில்லை 🔴",
+        "verify": "சரிபார்க்க", "verified": "சரிபார்க்கப்பட்ட MSME 🟢", "not_verified": "சரிபார்க்கவில்லை 🔴",
         "rate": "இந்த பயனரை மதிப்பிடு", "rating": "மதிப்பீடு", "submit_rating": "மதிப்பீடு சமர்ப்பி", "thanks_rating": "மதிப்பீட்டுக்கு நன்றி!",
         "success_story": "🌟 வெற்றி கதைகள்", "share_story": "உங்கள் கதையை பகிரவும்", "submit_story": "கதை சமர்ப்பி",
         "story_submitted": "கதை சமர்ப்பிக்கப்பட்டது!", "impact_dash": "🌏 தாக்கம்",
@@ -82,8 +81,7 @@ labels = {
         "story_title": "கதை தலைப்பு", "story_desc": "உங்கள் கதை/தாக்கம் எழுதவும்", "submit_video": "வீடியோ சமர்ப்பி",
         "video_submitted": "வீடியோ சமர்ப்பிக்கப்பட்டது!", "faq_title": "❓ MSME FAQ Bot", "ask_question": "உங்கள் கேள்வி கேளுங்கள்",
         "ask": "கேள்", "video_section": "🎬 சமூக வீடியோக்கள்", "no_video_stories": "வீடியோக்கள் இல்லை.",
-        "report_listing": "🚩 பட்டியலை புகார் செய்", "reported": 
-           "report_listing": "🚩 பட்டியலை புகார் செய்", "reported": "புகார் செய்யப்பட்டது!", "already_reported": "ஏற்கனவே புகார் செய்யப்பட்டது.",
+        "report_listing": "🚩 பட்டியலை புகார் செய்", "reported": "புகார் செய்யப்பட்டது!", "already_reported": "ஏற்கனவே புகார் செய்யப்பட்டது.",
         "privacy": "தனியுரிமைக் கொள்கை", "privacy_summary": "உங்கள் தொடர்பு தகவல் பொதுவாக காட்டப்படும். உங்கள் தரவு விற்கப்படாது.",
         "show_contact": "பட்டியலில் தொடர்பு தகவல் காட்டவும்", "hide_contact": "பட்டியலில் காட்ட வேண்டாம்",
         "notifications": "🔔 அறிவிப்புகள்", "no_notifications": "அறிவிப்புகள் இல்லை.",
@@ -91,7 +89,7 @@ labels = {
         "progress": "உங்கள் பசுமை வளர்ச்சி", "next_badge": "அடுத்த பேட்ஜ்", "early_adopter": "🌱 ஆரம்ப பங்காளர்",
         "whatsapp": "WhatsApp சமூகத்தைச் சேர", "howto_desc": "டெமோ பார்க்க, சமூகத்தைச் சேர, BioLoop ஐ முழுமையாக பயன்படுத்துங்கள்.",
         "admin_review": "நிர்வாகப் பரிசீலனை", "gstin": "GSTIN (சரிபார்ப்பு)", "submit_signup": "பதிவு செய்",
-        "admin_approve": "அங்கீகரி", "admin_reject": "நிராகரி", "approved": "அங்கீகரிக்கப்பட்டது!", "rejected": "நிராகரிக்கப்பட்டது.",
+        "admin_approve": "அங்கீகரி", "admin_reject": "நிராகரி", "approved": "அங்கீகரிக்கப்பட்டது!", "rejected": "நிராகரிக்கப்பட்டது."
     },
     "हिन्दी": {
         "submit": "अपशिष्ट जमा करें", "material": "सामग्री प्रकार", "login": "एमएसएमई लॉगिन", "password": "पासवर्ड",
@@ -132,11 +130,13 @@ labels = {
         "progress": "आपकी ग्रीन प्रगति", "next_badge": "अगला बैज", "early_adopter": "🌱 शुरुआती",
         "whatsapp": "WhatsApp समुदाय से जुड़ें", "howto_desc": "डेमो देखें, समुदाय से जुड़ें, और BioLoop का अधिकतम उपयोग करें.",
         "admin_review": "एडमिन समीक्षा चल रही है", "gstin": "GSTIN (सत्यापन)", "submit_signup": "रजिस्टर करें",
-        "admin_approve": "स्वीकृत करें", "admin_reject": "अस्वीकृत करें", "approved": "स्वीकृत!", "rejected": "अस्वीकृत.",
+        "admin_approve": "स्वीकृत करें", "admin_reject": "अस्वीकृत करें", "approved": "स्वीकृत!", "rejected": "अस्वीकृत."
+    }
+}
 
-      
-}}
-def L(key): return labels[st.session_state.get("lang", "English")].get(key, key)
+def L(key): 
+    lang = st.session_state.get("lang", "English")
+    return labels.get(lang, labels["English"]).get(key, key)
 
 # --- DATA FILES ---
 DATA_FILE = "data/waste_profiles.json"
@@ -162,8 +162,10 @@ def load_datafile(path, default=None):
     with open(path) as f:
         try: return json.load(f)
         except: return default
+
 def save_datafile(path, data):
     with open(path, "w") as f: json.dump(data, f, indent=2)
+
 def load_data(): return load_datafile(DATA_FILE, [])
 def save_data(data): save_datafile(DATA_FILE, data)
 def load_users(): return load_datafile(USER_FILE, {})
@@ -202,7 +204,6 @@ carbon_factors = {
     "cotton scraps": 2.5, "metal scraps": 6.0, "food waste": 1.8,
     "sawdust": 2.2, "paper waste": 2.9
 }
-
 # --- REFERRAL ---
 def create_referral(user_id):
     code = uuid.uuid4().hex[:8]
@@ -231,16 +232,16 @@ import streamlit as st
 from bioloop_core import *
 from datetime import datetime
 
-def load_lottiefile(filepath:str):
+def load_lottiefile(filepath: str):
     import json
-    with open(filepath,"r") as f:
+    with open(filepath, "r") as f:
         return json.load(f)
 
 st.set_page_config(page_title="BioLoop", page_icon="♻", layout="centered")
 for k, v in [
     ("authenticated", False), ("user_id", ""), ("page", "landing"),
     ("lang", "English"), ("verified", False), ("prev_page", "landing"),
-    ("notifications", []),
+    ("notifications", [])
 ]: st.session_state.setdefault(k, v)
 
 def lang_selector():
@@ -250,9 +251,11 @@ def lang_selector():
 def go(page):
     st.session_state["prev_page"] = st.session_state.get("page", "landing")
     st.session_state["page"] = page
+
 def back_button(default="landing"):
     prev = st.session_state.get("prev_page", default)
-    if st.button("⬅ " + L("back")): st.session_state["page"] = prev
+    if st.button("⬅ " + L("back")):
+        st.session_state["page"] = prev
 
 def landing_page():
     st.image("assets/bioloop_logo.png", width=150)
@@ -320,7 +323,8 @@ def signup_page():
                 "privacy": True
             }
             save_users(users)
-            if ref_code: register_referral(ref_code, new_id)
+            if ref_code:
+                register_referral(ref_code, new_id)
             st.success(L("account_created") + " " + L("admin_review"))
             st.button(L("login"), on_click=go, args=("login",))
     back_button("landing")
@@ -380,12 +384,129 @@ import qrcode
 def submit_page():
     st.markdown(f"<div class='biol-title'>{L('header')}</div>", unsafe_allow_html=True)
     st.info("Tip: Upload a clear photo & accurate contact for faster matches. Your privacy settings apply.")
-    # ... [rest of function as in previous code, unchanged for brevity] ...
+    material_input = st.text_input(L("material"))
+    material = None
+    if material_input:
+        match = process.extractOne(material_input.lower(), reuse_db.keys())
+        if match:
+            material = match[0]
+            st.info(f"{L('matched')}: {material.title()} ({match[1]}%)")
+    uploaded_img = st.file_uploader(L("upload_image"), type=["png", "jpg", "jpeg"])
+    img_b64 = ""
+    if uploaded_img:
+        img_bytes = uploaded_img.read()
+        img_b64 = base64.b64encode(img_bytes).decode()
+    if material:
+        quantity = st.number_input(L("quantity"), min_value=1)
+        location = st.text_input(L("location"))
+        contact = st.text_input(L("contact"))
+        quality = st.selectbox(L("quality"), [L("clean"), L("mixed"), L("contaminated")])
+        users = load_users()
+        show_contact = st.checkbox(L("show_contact"), value=users.get(st.session_state["user_id"], {}).get("privacy", True))
+        if st.button(L("submit")):
+            valid = re.match(r"[^@]+@[^@]+\.[^@]+", contact) or re.match(r"\d{10}", contact)
+            if not valid:
+                st.warning(L("invalid_contact"))
+            else:
+                lat, lon = None, None
+                try:
+                    loc = geolocator.geocode(location)
+                    if loc:
+                        lat, lon = loc.latitude, loc.longitude
+                except:
+                    pass
+                entry = {
+                    "material": material,
+                    "quantity": quantity,
+                    "location": location,
+                    "contact": contact if show_contact else "Hidden",
+                    "lat": lat, "lon": lon,
+                    "quality": quality,
+                    "image": img_b64,
+                    "timestamp": datetime.now().isoformat(),
+                    "user_id": st.session_state["user_id"],
+                    "show_contact": show_contact
+                }
+                entry["trace_id"] = generate_trace_hash(entry)
+                data = load_data()
+                data.append(entry)
+                save_data(data)
+                st.success(L("success"))
+                st.session_state["page"] = "home"
+    back_button("home")
 
 def browse_page():
     st.header(L("browse_waste"))
     st.info("Tip: You can join a batch pickup or report spam listings here.")
-    # ... [rest of function as in previous code, unchanged for brevity] ...
+    data = load_data()
+    df = pd.DataFrame(data)
+    mat = st.selectbox(L("filter_material"), [L("all")] + list(reuse_db.keys()))
+    loc = st.text_input(L("filter_location"))
+    filtered = df
+    if mat and mat != L("all"):
+        filtered = filtered[filtered["material"] == mat]
+    if loc:
+        filtered = filtered[filtered["location"].str.contains(loc, case=False, na=False)]
+    if filtered.empty:
+        st.info(L("no_data"))
+    else:
+        for i, row in filtered.iterrows():
+            st.markdown(f"### {row.get('material', '').title()} — {row.get('quantity', 0)} {L('kg_week')}")
+            if row.get("image"):
+                st.image(base64.b64decode(row["image"]), width=200)
+            st.write(f"{L('location')}:** {row.get('location', '')}")
+            st.write(f"{L('quality')}:** {row.get('quality', '')}")
+            st.write(f"{L('contact')}:** {row.get('contact', '') if row.get('show_contact', True) else 'Hidden'}")
+            st.write(f"{L('rating')}:** {get_user_rating(row.get('user_id', ''))} ⭐")
+            st.write(f"ID: {row.get('trace_id', '')[:8]}")
+            st.write(f"{L('rate')}:")
+            user_rating = st.slider(L("rating"), 1, 5, 3, key=f"rate-{i}")
+            if st.button(L("submit_rating"), key=f"submitrate-{i}"):
+                ratings = load_datafile(RATINGS_FILE, [])
+                ratings.append({"user": row.get("user_id", ""), "rating": user_rating, "by": st.session_state["user_id"], "time": datetime.now().isoformat()})
+                save_datafile(RATINGS_FILE, ratings)
+                st.success(L("thanks_rating"))
+            if st.button(L("batch_pickup"), key=f"batch-{i}"):
+                join_batch_pickup(row.get('material', ''), row.get('location', ''), st.session_state['user_id'])
+            if st.button(L("report_listing"), key=f"rep-{i}"):
+                report_listing(row.get('trace_id', ''))
+            st.markdown("---")
+    back_button("home")
+
+def join_batch_pickup(material, location, user_id):
+    batches = load_datafile(BATCHES_FILE, [])
+    for b in batches:
+        if b["material"] == material and b["location"] == location:
+            if user_id in b["users"]:
+                st.info(L("already_joined"))
+                return
+            else:
+                b["users"].append(user_id)
+                save_datafile(BATCHES_FILE, batches)
+                st.success(L("joined_batch"))
+                add_notification(user_id, f"Batch pickup joined for {material} at {location}")
+                return
+    batches.append({"material": material, "location": location, "users": [user_id], "created": datetime.now().isoformat()})
+    save_datafile(BATCHES_FILE, batches)
+    st.success(L("joined_batch"))
+    add_notification(user_id, f"Batch pickup created for {material} at {location}")
+
+def report_listing(trace_id):
+    reports = load_datafile(REPORTS_FILE, [])
+    if any(r.get("trace_id") == trace_id and r.get("reporter") == st.session_state["user_id"] for r in reports):
+        st.info(L("already_reported"))
+        return
+    reason = st.text_area("Describe the issue (spam, fake info, etc.)", key=f"repmsg-{trace_id}")
+    if st.button("Submit Report", key=f"repsub-{trace_id}"):
+        reports.append({
+            "trace_id": trace_id,
+            "reporter": st.session_state["user_id"],
+            "reason": reason,
+            "time": datetime.now().isoformat()
+        })
+        save_datafile(REPORTS_FILE, reports)
+        st.success(L("reported"))
+        add_notification("admin@bioloop.in", f"Listing {trace_id} reported by {st.session_state['user_id']}")
 
 def dashboard_page():
     data = load_data()
@@ -396,10 +517,27 @@ def dashboard_page():
     if total >= 100: badge = L("badge_gold")
     elif total >= 50: badge = L("badge_silver")
     elif total >= 20: badge = L("badge_bronze")
-    if badge: st.success(badge)
-    if st.session_state.get("early", False): st.info(L("early_adopter"))
+    if badge:
+        st.success(badge)
+    if st.session_state.get("early", False):
+        st.info(L("early_adopter"))
     st.info("Refer friends for bonus badges! Your referral code: " + create_referral(st.session_state["user_id"]))
-    # ... rest as before ...
+    if not mydata:
+        st.info(L("no_entries"))
+    else:
+        for i, row in enumerate(mydata[::-1]):
+            st.markdown(f"### {row.get('material', '').title()} — {row.get('quantity', 0)} {L('kg_week')}")
+            st.write(f"{L('location')}:** {row.get('location', '')}")
+            if row.get("image"):
+                st.image(base64.b64decode(row["image"]), width=200)
+            st.write(f"{L('quality')}:** {row.get('quality', '')}")
+            st.write(f"ID: {row.get('trace_id','')[:8]}")
+            if st.button("❌ " + L("delete_success"), key=f"del-{i}"):
+                data.remove(row)
+                save_data(data)
+                st.success(L("delete_success"))
+    st.button("Privacy Settings", on_click=go, args=("privacy_settings",), use_container_width=True)
+    back_button("home")
 
 def analytics_page():
     data = load_data()
@@ -408,7 +546,21 @@ def analytics_page():
         st.map(df[["lat", "lon"]].dropna())
         st.bar_chart(df.groupby("material")["quantity"].sum())
         st.info("Impact: Top materials by quantity recycled!")
-        # ... leaderboard as before ...
+        leader = df.groupby("user_id")["quantity"].sum().sort_values(ascending=False).head(5)
+        st.write(L("leaderboard"))
+        for idx, (user, amt) in enumerate(leader.items(), 1):
+            badge = ""
+            if idx == 1: badge = L("badge_gold")
+            elif idx == 2: badge = L("badge_silver")
+            elif idx == 3: badge = L("badge_bronze")
+            st.write(f"{idx}. {user} — {amt} kg/week {badge}")
+        user_amt = leader.get(st.session_state["user_id"], 0)
+        if user_amt >= 100:
+            st.success(L("badge_gold"))
+        elif user_amt >= 50:
+            st.info(L("badge_silver"))
+        elif user_amt >= 20:
+            st.info(L("badge_bronze"))
     else:
         st.info(L("no_data"))
     back_button("home")
@@ -465,17 +617,91 @@ def referral_page():
         if r["user"] == st.session_state["user_id"]:
             st.write(f"Friends joined: {', '.join(r['joined'])}")
 
+def interest_registration():
+    st.subheader(L("register_interest"))
+    mat = st.selectbox(L("interest_material"), list(reuse_db.keys()))
+    loc = st.text_input(L("interest_location"))
+    if st.button(L("register_interest")):
+        interests = load_datafile(INTERESTS_FILE, [])
+        interests.append({
+            "user": st.session_state["user_id"],
+            "material": mat,
+            "location": loc,
+            "time": datetime.now().isoformat()
+        })
+        save_datafile(INTERESTS_FILE, interests)
+        st.success(L("interest_registered"))
+        add_notification(st.session_state["user_id"], f"Interest registered for {mat} at {loc}")
+    back_button("home")
+
+def notifications_page():
+    st.header(L("notifications"))
+    notifs = load_datafile(NOTIFICATIONS_FILE, [])
+    user_notifs = [n for n in notifs if n.get("user") == st.session_state["user_id"]]
+    if not user_notifs:
+        st.info(L("no_notifications"))
+    else:
+        for n in user_notifs[::-1]:
+            st.success(n.get("msg", ""))
+    back_button("home")
+
+def export_page():
+    st.header(L("export"))
+    data = load_data()
+    df = pd.DataFrame(data)
+    if not df.empty:
+        buf = io.StringIO()
+        df.to_csv(buf, index=False)
+        st.download_button(L("download_csv"), buf.getvalue(), "waste_data.csv", "text/csv")
+    else:
+        st.info(L("no_data"))
+    back_button("home")
+
+def video_stories():
+    st.header(L("add_story_video"))
+    stories = load_datafile(STORIES_FILE, [])
+    title = st.text_input(L("story_title"))
+    desc = st.text_area(L("story_desc"))
+    youtube = st.text_input(L("video_url"), placeholder="https://www.youtube.com/embed/...")
+    if st.button(L("submit_video")):
+        if youtube:
+            stories.append({
+                "user": st.session_state["user_id"],
+                "title": title,
+                "desc": desc,
+                "youtube": youtube,
+                "time": datetime.now().isoformat()
+            })
+            save_datafile(STORIES_FILE, stories)
+            st.success(L("video_submitted"))
+    back_button("home")
+
+def show_video_stories():
+    st.header(L("video_section"))
+    stories = load_datafile(STORIES_FILE, [])
+    if not stories:
+        st.info(L("no_video_stories"))
+    for s in stories[::-1]:
+        st.markdown(f"### {s.get('title', '(No Title)')}")
+        st.write(f"by {s.get('user', '')} at {s.get('time', '')[:16].replace('T',' ')}")
+        if s.get("youtube"):
+            st.video(s["youtube"])
+        if s.get("desc"):
+            st.write(s["desc"])
+        st.markdown("---")
+    back_button("home")
+
 def main():
     pages = {
         "landing": landing_page,
         "login": login_page,
         "signup": signup_page,
-        "home": home_page,
-        "faq": faq_bot,
+        "home": landing_page,
+        "faq": None, # Implement FAQ bot if needed
         "howto": howto_page,
         "privacy": privacy_policy_page,
         "privacy_settings": privacy_settings,
-        "chat": community_chat_page,
+        "chat": None, # Implement Community Chat if needed
         "submit": submit_page,
         "browse": browse_page,
         "dashboard": dashboard_page,
@@ -487,15 +713,13 @@ def main():
         "notifications": notifications_page,
         "addvideo": video_stories,
         "videos": show_video_stories,
-        "referral": referral_page,
+        "referral": referral_page
     }
     page = st.session_state.get("page", "landing")
-    if page in pages:
+    if page in pages and pages[page]:
         pages[page]()
     else:
         landing_page()
 
 if _name_ == "_main_":
     main()
-
-
