@@ -5,3 +5,4 @@ pandas
 fuzzywuzzy
 python-Levenshtein
 requests
+fpdf
