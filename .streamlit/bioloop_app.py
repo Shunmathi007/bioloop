@@ -23,7 +23,7 @@ labels = {
         "my_submissions": "My Submissions", "analytics": "Analytics", "microplanner": "Micro-unit Planner", "export": "Export Data",
         "admin_panel": "Admin Panel", "top_materials": "Top Submitted Materials",
         "no_data": "No data found yet.", "no_entries": "You haven't submitted any waste yet.",
-        "delete_success": "✅ Submission deleted successfully.", "download_csv": "Download CSV",
+        "delete_success": "Submission deleted successfully.", "download_csv": "Download CSV",
         "browse": "Browse Materials", "otp": "Enter OTP sent to your email (1234)",
         "verify": "Verify", "verified": "Verified MSME 🟢", "not_verified": "Not Verified 🔴",
         "rate": "Rate this user", "rating": "Rating", "submit_rating": "Submit Rating", "thanks_rating": "Thanks for rating!",
@@ -65,7 +65,7 @@ labels = {
         "my_submissions": "என் சமர்ப்பிப்புகள்", "analytics": "பகுப்பாய்வு", "microplanner": "மைக்ரோ யூனிட் திட்டம்", "export": "தரவு ஏற்று",
         "admin_panel": "நிர்வாகப் பலகை", "top_materials": "மேம்பட்ட பொருள்கள்",
         "no_data": "தரவு இல்லை.", "no_entries": "நீங்கள் இன்னும் சமர்ப்பிக்கவில்லை.",
-        "delete_success": "✅ சமர்ப்பிப்பு நீக்கப்பட்டது.", "download_csv": "CSV பதிவிறக்கு",
+        "delete_success": "சமர்ப்பிப்பு நீக்கப்பட்டது.", "download_csv": "CSV பதிவிறக்கு",
         "browse": "பொருள்கள் பார்க்க", "otp": "உங்கள் மின்னஞ்சலில் OTP உள்ளிடவும் (1234)",
         "verify": "சரிபார்க்க", "verified": "சரிபார்க்கப்பட்ட MSME 🟢", "not_verified": "சரிபார்க்கவில்லை 🔴",
         "rate": "இந்த பயனரை மதிப்பிடு", "rating": "மதிப்பீடு", "submit_rating": "மதிப்பீடு சமர்ப்பி", "thanks_rating": "மதிப்பீட்டுக்கு நன்றி!",
@@ -106,7 +106,7 @@ labels = {
         "my_submissions": "मेरी जमा", "analytics": "एनालिटिक्स", "microplanner": "माइक्रो-यूनिट योजनाकर्ता", "export": "डाटा एक्सपोर्ट",
         "admin_panel": "एडमिन पैनल", "top_materials": "शीर्ष जमा सामग्री",
         "no_data": "डाटा नहीं मिला.", "no_entries": "आपने अभी तक कोई अपशिष्ट जमा नहीं किया.",
-        "delete_success": "✅ जमा सफलतापूर्वक हटाया गया.", "download_csv": "CSV डाउनलोड करें",
+        "delete_success": "जमा सफलतापूर्वक हटाया गया.", "download_csv": "CSV डाउनलोड करें",
         "browse": "सामग्री ब्राउज़ करें", "otp": "अपने ईमेल पर भेजा गया OTP डालें (1234)",
         "verify": "वेरीफाई करें", "verified": "वेरीफाईड MSME 🟢", "not_verified": "वेरीफाई नहीं हुआ 🔴",
         "rate": "इस उपयोगकर्ता को रेट करें", "rating": "रेटिंग", "submit_rating": "रेटिंग सबमिट करें", "thanks_rating": "रेटिंग के लिए धन्यवाद!",
@@ -134,7 +134,7 @@ labels = {
     }
 }
 
-def L(key): 
+def L(key):
     lang = st.session_state.get("lang", "English")
     return labels.get(lang, labels["English"]).get(key, key)
 
@@ -204,37 +204,7 @@ carbon_factors = {
     "cotton scraps": 2.5, "metal scraps": 6.0, "food waste": 1.8,
     "sawdust": 2.2, "paper waste": 2.9
 }
-# --- REFERRAL ---
-def create_referral(user_id):
-    code = uuid.uuid4().hex[:8]
-    refs = load_datafile(REFERRALS_FILE, [])
-    refs.append({"user": user_id, "code": code, "joined": []})
-    save_datafile(REFERRALS_FILE, refs)
-    return code
-
-def register_referral(code, new_user):
-    refs = load_datafile(REFERRALS_FILE, [])
-    for r in refs:
-        if r["code"] == code:
-            if new_user not in r["joined"]:
-                r["joined"].append(new_user)
-                save_datafile(REFERRALS_FILE, refs)
-                return True
-    return False
-
-# --- UP-CYCLING GUIDES ---
-def load_guides(): return load_datafile(GUIDES_FILE, [])
-def save_guide(guide): 
-    guides = load_guides()
-    guides.append(guide)
-    save_datafile(GUIDES_FILE, guides)
-import streamlit as st
-from datetime import datetime
-
-def load_lottiefile(filepath: str):
-    import json
-    with open(filepath, "r") as f:
-        return json.load(f)
+# ==== PART 2: Streamlit Page UI, Navigation, and Main App ====
 
 st.set_page_config(page_title="BioLoop", page_icon="♻", layout="centered")
 for k, v in [
@@ -257,25 +227,17 @@ def back_button(default="landing"):
         st.session_state["page"] = prev
 
 def landing_page():
-    st.image("assets/bioloop_logo.png", width=150)
-    try:
-        from streamlit_lottie import st_lottie
-        animation = load_lottiefile("assets/hero_animation.json")
-        st_lottie(animation, speed=1, width=500, height=300, loop=True)
-    except Exception:
-        st.info("Animation failed to load. Please install streamlit-lottie and check your assets.")
-    st.markdown(f"<div class='biol-title' style='text-align:center;'>♻ BioLoop</div>", unsafe_allow_html=True)
+    st.image("https://i.imgur.com/0y8Ftya.png", width=150)  # Placeholder logo, replace with your own
+    st.markdown(f"<div class='biol-title' style='text-align:center;font-size:2em;'>♻ BioLoop</div>", unsafe_allow_html=True)
     st.markdown(f"<div class='biol-sub' style='text-align:center;'>Empowering Circular Economy for MSMEs</div>", unsafe_allow_html=True)
     lang_selector()
-    st.markdown("*How BioLoop Works:* 1) Sign up, 2) Submit waste, 3) Connect, 4) Recycle, 5) Earn badges/certificates!")
+    st.markdown("How BioLoop Works: 1) Sign up, 2) Submit waste, 3) Connect, 4) Recycle, 5) Earn badges/certificates!")
     st.button(L("login"), use_container_width=True, on_click=go, args=("login",))
     st.button(L("signup"), use_container_width=True, on_click=go, args=("signup",))
-    st.button(L("faq_title"), use_container_width=True, on_click=go, args=("faq",))
-    st.button(L("add_story_video"), use_container_width=True, on_click=go, args=("addvideo",))
-    st.button(L("video_section"), use_container_width=True, on_click=go, args=("videos",))
+    st.button(L("browse_waste"), use_container_width=True, on_click=go, args=("browse",))
     st.button(L("howto"), use_container_width=True, on_click=go, args=("howto",))
     st.button(L("privacy"), use_container_width=True, on_click=go, args=("privacy"),)
-    st.button(L("whatsapp"), use_container_width=True, on_click=go, args=("chat",))
+    st.button(L("video_section"), use_container_width=True, on_click=go, args=("videos",))
 
 def login_page():
     st.markdown(f"<div class='biol-title'>{L('login')}</div>", unsafe_allow_html=True)
@@ -290,7 +252,7 @@ def login_page():
             st.session_state["verified"] = users[user].get("verified", False)
             st.session_state["early"] = users[user].get("early", False)
             st.session_state["privacy"] = users[user].get("privacy", True)
-            st.session_state["page"] = "home"
+            st.session_state["page"] = "dashboard"
         elif user in users and not users[user].get("approved", False):
             st.warning(L("admin_review"))
         else:
@@ -304,7 +266,6 @@ def signup_page():
     new_id = st.text_input("Choose MSME ID")
     new_pw = st.text_input("Choose Password", type="password")
     gstin = st.text_input(L("gstin"))
-    ref_code = st.text_input("Referral Code (optional)")
     if st.button(L("submit_signup")):
         if new_id in users:
             st.error(L("duplicate_id"))
@@ -317,13 +278,11 @@ def signup_page():
                 "pw": new_pw,
                 "gstin": gstin,
                 "verified": False,
-                "approved": False,
+                "approved": True,
                 "early": datetime.now().isoformat() < "2025-12-31T00:00:00",
                 "privacy": True
             }
             save_users(users)
-            if ref_code:
-                register_referral(ref_code, new_id)
             st.success(L("account_created") + " " + L("admin_review"))
             st.button(L("login"), on_click=go, args=("login",))
     back_button("landing")
@@ -333,31 +292,23 @@ def logout():
     st.session_state["user_id"] = ""
     st.session_state["page"] = "landing"
 
-def verify_user():
-    if not st.session_state.get("verified"):
-        otp = st.text_input(L("otp"))
-        if st.button(L("verify")):
-            if otp == "1234":
-                st.session_state["verified"] = True
-                users = load_users()
-                users[st.session_state["user_id"]]["verified"] = True
-                save_users(users)
-                st.success(L("verified"))
-            else:
-                st.error("Incorrect OTP.")
-
-def privacy_settings():
-    st.header(L("privacy"))
-    users = load_users()
-    user_id = st.session_state["user_id"]
-    privacy = users[user_id].get("privacy", True)
-    show_contact = st.checkbox(L("show_contact"), value=privacy)
-    if st.button("Save Privacy Settings"):
-        users[user_id]["privacy"] = show_contact
-        save_users(users)
-        st.session_state["privacy"] = show_contact
-        st.success("Privacy Updated!")
-    back_button("dashboard")
+def dashboard_page():
+    st.markdown(f"<div class='biol-title'>{L('dashboard')}</div>", unsafe_allow_html=True)
+    st.write(f"👤 {st.session_state['user_id']} | [{L('logout')}]")
+    if st.button(L("logout")):
+        logout()
+        return
+    st.button(L("submit"), on_click=go, args=("submit",))
+    st.button(L("my_submissions"), on_click=go, args=("my_submissions",))
+    st.button(L("analytics"), on_click=go, args=("analytics",))
+    st.button(L("microplanner"), on_click=go, args=("microplanner",))
+    st.button(L("export"), on_click=go, args=("export",))
+    st.button(L("download_cert"), on_click=go, args=("certificate",))
+    st.button(L("add_story_video"), on_click=go, args=("addvideo",))
+    st.button(L("video_section"), on_click=go, args=("videos",))
+    st.button(L("privacy"), on_click=go, args=("privacy"),)
+    st.button(L("howto"), on_click=go, args=("howto",))
+    st.button(L("browse_waste"), on_click=go, args=("browse",))
 
 def howto_page():
     st.header(L("howto"))
@@ -372,11 +323,7 @@ def privacy_policy_page():
     st.write(L("privacy_summary"))
     st.write("For more info, contact admin@bioloop.in")
     back_button("landing")
-import streamlit as st
-from datetime import datetime
-import base64, io, pandas as pd
-from fpdf import FPDF
-import qrcode
+# ==== PART 3: Waste Submission, Browse, Analytics, Microplanner, Stories, Export, and Main Entrypoint ====
 
 def submit_page():
     st.markdown(f"<div class='biol-title'>{L('header')}</div>", unsafe_allow_html=True)
@@ -429,8 +376,8 @@ def submit_page():
                 data.append(entry)
                 save_data(data)
                 st.success(L("success"))
-                st.session_state["page"] = "home"
-    back_button("home")
+                st.session_state["page"] = "dashboard"
+    back_button("dashboard")
 
 def browse_page():
     st.header(L("browse_waste"))
@@ -451,92 +398,16 @@ def browse_page():
             st.markdown(f"### {row.get('material', '').title()} — {row.get('quantity', 0)} {L('kg_week')}")
             if row.get("image"):
                 st.image(base64.b64decode(row["image"]), width=200)
-            st.write(f"{L('location')}:** {row.get('location', '')}")
-            st.write(f"{L('quality')}:** {row.get('quality', '')}")
-            st.write(f"{L('contact')}:** {row.get('contact', '') if row.get('show_contact', True) else 'Hidden'}")
-            st.write(f"{L('rating')}:** {get_user_rating(row.get('user_id', ''))} ⭐")
+            st.write(f"{L('location')}: *{row.get('location', '')}*")
+            st.write(f"{L('quality')}: *{row.get('quality', '')}*")
+            st.write(f"{L('contact')}: *{row.get('contact', '') if row.get('show_contact', True) else 'Hidden'}*")
+            st.write(f"{L('rating')}: *{get_user_rating(row.get('user_id', ''))} ⭐*")
             st.write(f"ID: {row.get('trace_id', '')[:8]}")
-            st.write(f"{L('rate')}:")
-            user_rating = st.slider(L("rating"), 1, 5, 3, key=f"rate-{i}")
-            if st.button(L("submit_rating"), key=f"submitrate-{i}"):
-                ratings = load_datafile(RATINGS_FILE, [])
-                ratings.append({"user": row.get("user_id", ""), "rating": user_rating, "by": st.session_state["user_id"], "time": datetime.now().isoformat()})
-                save_datafile(RATINGS_FILE, ratings)
-                st.success(L("thanks_rating"))
-            if st.button(L("batch_pickup"), key=f"batch-{i}"):
-                join_batch_pickup(row.get('material', ''), row.get('location', ''), st.session_state['user_id'])
-            if st.button(L("report_listing"), key=f"rep-{i}"):
-                report_listing(row.get('trace_id', ''))
             st.markdown("---")
-    back_button("home")
-
-def join_batch_pickup(material, location, user_id):
-    batches = load_datafile(BATCHES_FILE, [])
-    for b in batches:
-        if b["material"] == material and b["location"] == location:
-            if user_id in b["users"]:
-                st.info(L("already_joined"))
-                return
-            else:
-                b["users"].append(user_id)
-                save_datafile(BATCHES_FILE, batches)
-                st.success(L("joined_batch"))
-                add_notification(user_id, f"Batch pickup joined for {material} at {location}")
-                return
-    batches.append({"material": material, "location": location, "users": [user_id], "created": datetime.now().isoformat()})
-    save_datafile(BATCHES_FILE, batches)
-    st.success(L("joined_batch"))
-    add_notification(user_id, f"Batch pickup created for {material} at {location}")
-
-def report_listing(trace_id):
-    reports = load_datafile(REPORTS_FILE, [])
-    if any(r.get("trace_id") == trace_id and r.get("reporter") == st.session_state["user_id"] for r in reports):
-        st.info(L("already_reported"))
-        return
-    reason = st.text_area("Describe the issue (spam, fake info, etc.)", key=f"repmsg-{trace_id}")
-    if st.button("Submit Report", key=f"repsub-{trace_id}"):
-        reports.append({
-            "trace_id": trace_id,
-            "reporter": st.session_state["user_id"],
-            "reason": reason,
-            "time": datetime.now().isoformat()
-        })
-        save_datafile(REPORTS_FILE, reports)
-        st.success(L("reported"))
-        add_notification("admin@bioloop.in", f"Listing {trace_id} reported by {st.session_state['user_id']}")
-
-def dashboard_page():
-    data = load_data()
-    mydata = [d for d in data if d.get("user_id") == st.session_state.get("user_id")]
-    total = sum(d.get("quantity", 0) for d in mydata)
-    st.progress(min(total/100,1.0), text=f"{L('progress')}: {total} kg — {L('next_badge')}: 20/50/100 kg")
-    badge = None
-    if total >= 100: badge = L("badge_gold")
-    elif total >= 50: badge = L("badge_silver")
-    elif total >= 20: badge = L("badge_bronze")
-    if badge:
-        st.success(badge)
-    if st.session_state.get("early", False):
-        st.info(L("early_adopter"))
-    st.info("Refer friends for bonus badges! Your referral code: " + create_referral(st.session_state["user_id"]))
-    if not mydata:
-        st.info(L("no_entries"))
-    else:
-        for i, row in enumerate(mydata[::-1]):
-            st.markdown(f"### {row.get('material', '').title()} — {row.get('quantity', 0)} {L('kg_week')}")
-            st.write(f"{L('location')}:** {row.get('location', '')}")
-            if row.get("image"):
-                st.image(base64.b64decode(row["image"]), width=200)
-            st.write(f"{L('quality')}:** {row.get('quality', '')}")
-            st.write(f"ID: {row.get('trace_id','')[:8]}")
-            if st.button("❌ " + L("delete_success"), key=f"del-{i}"):
-                data.remove(row)
-                save_data(data)
-                st.success(L("delete_success"))
-    st.button("Privacy Settings", on_click=go, args=("privacy_settings",), use_container_width=True)
-    back_button("home")
+    back_button("dashboard")
 
 def analytics_page():
+    st.header(L("analytics"))
     data = load_data()
     df = pd.DataFrame(data)
     if not df.empty and "lat" in df and "lon" in df:
@@ -551,16 +422,9 @@ def analytics_page():
             elif idx == 2: badge = L("badge_silver")
             elif idx == 3: badge = L("badge_bronze")
             st.write(f"{idx}. {user} — {amt} kg/week {badge}")
-        user_amt = leader.get(st.session_state["user_id"], 0)
-        if user_amt >= 100:
-            st.success(L("badge_gold"))
-        elif user_amt >= 50:
-            st.info(L("badge_silver"))
-        elif user_amt >= 20:
-            st.info(L("badge_bronze"))
     else:
         st.info(L("no_data"))
-    back_button("home")
+    back_button("dashboard")
 
 def microplanner_page():
     st.header(L("microplanner"))
@@ -571,15 +435,7 @@ def microplanner_page():
     st.write(f"ROI: {unit['roi']}")
     st.write(f"Sample Reusers: {', '.join(reuse_db[mat])}")
     st.info("Check up-cycling guides below for more ideas!")
-    guides = load_guides()
-    for guide in guides:
-        if guide["material"] == mat:
-            st.markdown(f"*Guide:* {guide['title']} - {guide['content']}")
-    guide_title = st.text_input("Suggest your up-cycling guide for this material:")
-    guide_content = st.text_area("Guide Content")
-    if st.button("Submit Guide"):
-        save_guide({"material": mat, "title": guide_title, "content": guide_content, "by": st.session_state["user_id"]})
-        st.success("Guide submitted!")
+    back_button("dashboard")
 
 def generate_certificate(user_id, total_waste):
     if total_waste >= 50:
@@ -592,10 +448,13 @@ def generate_certificate(user_id, total_waste):
         qr = qrcode.make(f"https://bioloop.org/cert/{user_id}")
         qr_buf = io.BytesIO()
         qr.save(qr_buf, format='PNG')
+        qr_buf.seek(0)
         pdf.image(qr_buf, x=80, y=60, w=50, h=50)
-        buf = io.BytesIO()
-        pdf.output(buf)
-        st.download_button(L("download_cert"), buf.getvalue(), "certificate.pdf", "application/pdf")
+        pdf_bytes = pdf.output(dest='S').encode('latin-1')
+        st.download_button(L("download_cert"), pdf_bytes, "certificate.pdf", "application/pdf")
+    else:
+        st.info("Submit at least 50kg waste to unlock your certificate!")
+    back_button("dashboard")
 
 def certificate_page():
     st.header(L("download_cert"))
@@ -603,44 +462,6 @@ def certificate_page():
     df = pd.DataFrame(data)
     total = df[df["user_id"] == st.session_state["user_id"]]["quantity"].sum() if not df.empty else 0
     generate_certificate(st.session_state["user_id"], total)
-    back_button("home")
-
-def referral_page():
-    st.header("Referral Program")
-    code = create_referral(st.session_state["user_id"])
-    st.markdown(f"Share your referral code: {code}. Friends who sign up with this get bonus badges!")
-    refs = load_datafile(REFERRALS_FILE, [])
-    for r in refs:
-        if r["user"] == st.session_state["user_id"]:
-            st.write(f"Friends joined: {', '.join(r['joined'])}")
-
-def interest_registration():
-    st.subheader(L("register_interest"))
-    mat = st.selectbox(L("interest_material"), list(reuse_db.keys()))
-    loc = st.text_input(L("interest_location"))
-    if st.button(L("register_interest")):
-        interests = load_datafile(INTERESTS_FILE, [])
-        interests.append({
-            "user": st.session_state["user_id"],
-            "material": mat,
-            "location": loc,
-            "time": datetime.now().isoformat()
-        })
-        save_datafile(INTERESTS_FILE, interests)
-        st.success(L("interest_registered"))
-        add_notification(st.session_state["user_id"], f"Interest registered for {mat} at {loc}")
-    back_button("home")
-
-def notifications_page():
-    st.header(L("notifications"))
-    notifs = load_datafile(NOTIFICATIONS_FILE, [])
-    user_notifs = [n for n in notifs if n.get("user") == st.session_state["user_id"]]
-    if not user_notifs:
-        st.info(L("no_notifications"))
-    else:
-        for n in user_notifs[::-1]:
-            st.success(n.get("msg", ""))
-    back_button("home")
 
 def export_page():
     st.header(L("export"))
@@ -652,9 +473,9 @@ def export_page():
         st.download_button(L("download_csv"), buf.getvalue(), "waste_data.csv", "text/csv")
     else:
         st.info(L("no_data"))
-    back_button("home")
+    back_button("dashboard")
 
-def video_stories():
+def add_story_video():
     st.header(L("add_story_video"))
     stories = load_datafile(STORIES_FILE, [])
     title = st.text_input(L("story_title"))
@@ -671,7 +492,7 @@ def video_stories():
             })
             save_datafile(STORIES_FILE, stories)
             st.success(L("video_submitted"))
-    back_button("home")
+    back_button("dashboard")
 
 def show_video_stories():
     st.header(L("video_section"))
@@ -686,39 +507,49 @@ def show_video_stories():
         if s.get("desc"):
             st.write(s["desc"])
         st.markdown("---")
-    back_button("home")
+    back_button("dashboard")
 
+def my_submissions_page():
+    st.header(L("my_submissions"))
+    data = load_data()
+    mydata = [d for d in data if d.get("user_id") == st.session_state.get("user_id")]
+    if not mydata:
+        st.info(L("no_entries"))
+    else:
+        for i, row in enumerate(mydata[::-1]):
+            st.markdown(f"### {row.get('material', '').title()} — {row.get('quantity', 0)} {L('kg_week')}")
+            st.write(f"{L('location')}: *{row.get('location', '')}*")
+            if row.get("image"):
+                st.image(base64.b64decode(row["image"]), width=200)
+            st.write(f"{L('quality')}: *{row.get('quality', '')}*")
+            st.write(f"ID: {row.get('trace_id','')[:8]}")
+            if st.button("❌ Delete", key=f"del-{i}"):
+                data.remove(row)
+                save_data(data)
+                st.success(L("delete_success"))
+    back_button("dashboard")
+
+# Main navigation logic
 def main():
     pages = {
         "landing": landing_page,
         "login": login_page,
         "signup": signup_page,
-        "home": landing_page,
-        "faq": None, # Implement FAQ bot if needed
-        "howto": howto_page,
-        "privacy": privacy_policy_page,
-        "privacy_settings": privacy_settings,
-        "chat": None, # Implement Community Chat if needed
-        "submit": submit_page,
-        "browse": browse_page,
         "dashboard": dashboard_page,
-        "export": export_page,
+        "submit": submit_page,
+        "my_submissions": my_submissions_page,
+        "browse": browse_page,
         "analytics": analytics_page,
         "microplanner": microplanner_page,
         "certificate": certificate_page,
-        "interest": interest_registration,
-        "notifications": notifications_page,
-        "addvideo": video_stories,
+        "export": export_page,
+        "addvideo": add_story_video,
         "videos": show_video_stories,
-        "referral": referral_page
+        "howto": howto_page,
+        "privacy": privacy_policy_page,
     }
     page = st.session_state.get("page", "landing")
-    if page in pages and pages[page]:
-        pages[page]()
-    else:
-        landing_page()
+    pages.get(page, landing_page)()
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     main()
-
-
